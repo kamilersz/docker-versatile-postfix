@@ -54,23 +54,17 @@ Keep in mind, this is a smtp server only.
 To read recievied mails you should link a folder inside the conatiner.
 Otherwise all mails will get lost after you delete your container.
 
-To create a new postfix server for your domain you should use the following commands:
+To create a new postfix server for your domain and users you should edit those configuration at docker-compose.yml
+
+Then run following commands:
 
 ```
-$ docker run -p 25:25 -v /maildirs:/var/mail \
-    -v /dkim:/etc/postfix/dkim/ \
-    -e 'ALIASES=postmaster:root;hostmaster:root;webmaster:root' \
-    marvambass/versatile-postfix \
-    yourdomain.com \
-    user:password \
-    user1:password \
-    user2:password \
-    userN:password
+$ docker-compose up -d
 ```
 
 this creates a new smtp server which listens on port _25_, stores mail beneath _/mailsdirs_.
 
-The `/dkim` directory has to contain a DKIM-Key _(see above)_ with the name `dkim.key`
+The `./dkim` directory has to contain a DKIM-Key _(see above)_ with the name `dkim.key`
 
 It has serveral user accounts like `user1` with password "`password`" and a mail address `user1@yourdomain.com`
 

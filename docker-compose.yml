@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  postfix:
+    image: marvambass/versatile-postfix
+    restart: always
+    environment:
+      - ALIASES=postmaster:root;hostmaster:root;webmaster:root
+    volumes:
+      - "./dkim:/etc/postfix/dkim/"
+      - "./maildirs:/var/mail"
+    ports:
+      - "25:25"
+    command:
+      "example.com user1:password user2:password"
